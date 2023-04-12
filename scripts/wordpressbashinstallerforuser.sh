@@ -5,17 +5,17 @@ echo "Hello there!
 It automatic install wordpress and LAMP on ubuntu
 if you run this that you accept our and other conditions!"
 sleep 1 
-#echo "Note: please correct input data else you broke your machine" 
-#echo "enter your user for DB in MySQL and PHP" 
-#read username
-#echo "enter password " 
-#read password
-#echo "and also enter name DB for Wordpress "
-#read wp
+echo "Note: please correct input data else you broke your machine" 
+echo "enter your user for DB in MySQL and PHP" 
+read username
+echo "enter password " 
+read password
+echo "and also enter name DB for Wordpress "
+read wp
 
-username="wp"
-password="wp"
-wp="wp"
+#username="wp"
+#password="wp"
+#wp="wp"
 
 apt -y update
 
