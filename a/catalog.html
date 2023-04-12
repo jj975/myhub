@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+	<meta charset="UTF-8">
+	<title>Каталог автомобілів</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f1f1f1;
+			margin: 0;
+			padding: 0;
+		}
+		header {
+			background-color: #333;
+			color: #fff;
+			padding: 20px;
+			text-align: center;
+			font-size: 36px;
+			font-weight: bold;
+		}
+		nav {
+			background-color: #666;
+			color: #fff;
+			padding: 10px;
+			display: flex;
+			justify-content: center;
+		}
+		nav a {
+			color: #fff;
+			text-decoration: none;
+			margin: 0 10px;
+			font-size: 24px;
+			font-weight: bold;
+			padding: 10px;
+		}
+		nav a:hover {
+			background-color: #fff;
+			color: #333;
+			border-radius: 5px;
+			transition: all 0.3s ease;
+		}
+		section {
+			padding: 20px;
+			margin: 20px;
+			background-color: #fff;
+			box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+			border-radius: 5px;
+		}
+		h2 {
+			font-size: 28px;
+			font-weight: bold;
+			margin: 0 0 20px 0;
+		}
+		.car {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			margin-bottom: 20px;
+			border: 1px solid #ccc;
+			padding: 20px;
+			border-radius: 5px;
+			background-color: #f7f7f7;
+			box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+		}
+		.car img {
+			width: 300px;
+			height: auto;
+			margin-right: 20px;
+		}
+		.car-info {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+		.car-title {
+			font-size: 24px;
+			font-weight: bold;
+			margin: 0 0 10px 0;
+		}
+		.car-price {
+			font-size: 24px;
+			font-weight: bold;
+			margin: 0;
+		}
+		.car-desc {
+			margin: 10px 0;
+		}
+		.car-btn {
+			background-color: #333;
+			color: #fff;
+			padding: 10px;
+			border-radius: 5px;
+			text-align: center;
+			text-decoration: none;
+			font-size: 18px;
+			font-weight: bold;
+			margin: 10px 0;
+		}
+		.car-btn:hover {
+			background-color: #fff;
+			color: #333;
+			transition: all 0.3s ease;
+		}
+				footer {
+			background-color: #333;
+			color: #fff;
+			padding: 20px;
+			text-align: center;
+			font-size: 18px;
+		}
+	</style>
+</head>
+<body>
+	<header>Каталог автомобілів</header>
+	<nav>
+		<a href="#">Головна</a>
+		<a href="#">Про нас</a>
+		<a href="#">Контакти</a>
+	</nav>
+	<section>
+		<h2>Нові автомобілі</h2>
+		<div class="car">
+			<img src="https://via.placeholder.com/300x200.png?text=Car+1" alt="Car 1">
+			<div class="car-info">
+				<div>
+					<div class="car-title">Audi A4</div>
+					<div class="car-price">$30,000</div>
+				</div>
+				<div class="car-desc">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Donec sollicitudin, odio ac ultricies hendrerit, sem risus 
+					congue urna, a tristique orci libero eu quam.
+				</div>
+				<a href="#" class="car-btn">Детальніше</a>
+			</div>
+		</div>
+		<div class="car">
+			<img src="https://via.placeholder.com/300x200.png?text=Car+2" alt="Car 2">
+			<div class="car-info">
+				<div>
+					<div class="car-title">BMW X5</div>
+					<div class="car-price">$50,000</div>
+				</div>
+				<div class="car-desc">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Donec sollicitudin, odio ac ultricies hendrerit, sem risus 
+					congue urna, a tristique orci libero eu quam.
+				</div>
+				<a href="#" class="car-btn">Детальніше</a>
+			</div>
+		</div>
+		<div class="car">
+			<img src="https://via.placeholder.com/300x200.png?text=Car+3" alt="Car 3">
+			<div class="car-info">
+				<div>
+					<div class="car-title">Mercedes-Benz E-Class</div>
+					<div class="car-price">$40,000</div>
+				</div>
+				<div class="car-desc">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Donec sollicitudin, odio ac ultricies hendrerit, sem risus 
+					congue urna, a tristique orci libero eu quam.
+				</div>
+				<a href="#" class="car-btn">Детальніше</a>
+			</div>
+		</div>
+	</section>
+	<footer>© 2023 Каталог автомобілів</footer>
+</body>
+</html>
+
