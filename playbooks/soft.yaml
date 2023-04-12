@@ -1,0 +1,90 @@
+---
+- name: Install soft
+  hosts: s
+  become: true
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install git
+      apt:
+        name: git
+        state: present
+        
+    - name: Ask user which scripts to install
+      vars_prompt:
+    	- name: "install_ansible2"
+      	  prompt: "Install Ansible 2? (yes/no)"
+      	  private: no
+          default: yes
+
+    	- name: "install_apache2"
+      	  prompt: "Install Apache 2? (yes/no)"
+          private: no
+          default: yes
+
+    	- name: "install_wordpress"
+          prompt: "Install Wordpress? (yes/no)"
+          private: no
+          default: yes
+
+    	- name: "install_zabbix"
+          prompt: "Install Zabbix? (yes/no)"
+          private: no
+          default: yes
+
+- name: Download scripts from Github
+  hosts: s
+  become: true
+  tasks:
+    - name: Clone git repository
+      git:
+        repo: https://github.com/jj975/myhub.git
+        dest: /tmp
+        version: v8
+        clone: yes
+      register: git_clone
+
+    - name: Check out v8 branch
+      git:
+        repo: https://github.com/jj975/myhub.git
+        dest: /tmp
+        version: v8
+        force: yes
+      when: git_clone.changed
+
+
+- name: Run scripts
+  hosts: s
+  become: true
+  tasks:
+    - name: Run ansible2installer.sh
+      shell: /tmp/scripts/ansible2installer.sh
+      args:
+        chdir: /tmp/scripts
+      register: ansible2installer_output
+      when: install_ansible2 == "yes"
+
+    - name: Run apache2installer.sh
+      shell: /tmp/scripts/apache2installer.sh
+      args:
+        chdir: /tmp/scripts
+      register: apache2installer_output
+      when: install_apache2 == "yes"
+
+    - name: Run wordpressbashinstaller.sh
+      shell: /tmp/scripts/wordpressbashinstaller.sh
+      args:
+        chdir: /tmp/scripts
+      register: wordpressbashinstaller_output
+      when: install_wordpress == "yes"
+
+    - name: Run zabbixinstaller.sh
+      shell: /tmp/scripts/zabbixinstaller.sh
+      args:
+        chdir: /tmp/scripts
+      register: zabbixinstaller_output
+      when: install_zabbix == "yes"
+
+

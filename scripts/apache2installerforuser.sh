@@ -11,3 +11,5 @@ if [ -f /var/www/html/index.html ]; then
 else
   echo "Помилка: apache2 не встановлено спробуй ще раз"
 fi
+
+apache2 --version

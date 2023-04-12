@@ -1,0 +1,60 @@
+---
+- name: Install necessary packages
+  hosts: s
+  become: true
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install git
+      apt:
+        name: git
+        state: present
+
+- name: Download scripts from Github
+  hosts: s
+  become: true
+  tasks:
+    - name: Clone git repository
+      git:
+        repo: https://github.com/yourusername/yourrepository.git
+        dest: /home/yourusername/yourrepository
+        clone: yes
+      register: git_clone
+
+    - name: Check out main branch
+      git:
+        repo: https://github.com/yourusername/yourrepository.git
+        dest: /home/yourusername/yourrepository
+        version: main
+        force: yes
+      when: git_clone.changed
+
+- name: Run scripts
+  hosts: s
+  become: true
+  tasks:
+    - name: Run ansible2installer.sh
+      shell: /home/yourusername/yourrepository/ansible2installer.sh
+      args:
+        chdir: /home/yourusername/yourrepository
+      register: ansible2installer_output
+
+    - name: Run apache2installer.sh
+      shell: /home/yourusername/yourrepository/apache2installer.sh
+      args:
+        chdir: /home/yourusername/yourrepository
+      register: apache2installer_output
+
+    - name: Run wordpressbashinstaller.sh
+      shell: /home/yourusername/yourrepository/wordpressbashinstaller.sh
+      args:
+        chdir: /home/yourusername/yourrepository
+      register: wordpressbashinstaller_output
+
+    - name: Run zabbixinstaller.sh
+      shell: /home/yourusername/yourrepository/zabbixinstaller.sh
+      args:
+        chdir: /home/yourusername/yourrepository
+      register: zabbixinstaller_output
