@@ -34,17 +34,14 @@
           private: no
           default: yes
 
-- name: Download scripts from Github
-  hosts: s
-  become: true
-  tasks:
-    - name: Clone git repository
+    - name: Download scripts from Github
       git:
         repo: https://github.com/jj975/myhub.git
         dest: /tmp
         version: v8
         clone: yes
       register: git_clone
+      when: "'yes' in [install_ansible2, install_apache2, install_wordpress, install_zabbix]"
 
     - name: Check out v8 branch
       git:
@@ -54,11 +51,6 @@
         force: yes
       when: git_clone.changed
 
-
-- name: Run scripts
-  hosts: s
-  become: true
-  tasks:
     - name: Run ansible2installer.sh
       shell: /tmp/scripts/ansible2installer.sh
       args:
@@ -86,4 +78,3 @@
         chdir: /tmp/scripts
       register: zabbixinstaller_output
       when: install_zabbix == "yes"
-

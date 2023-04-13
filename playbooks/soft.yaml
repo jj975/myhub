@@ -11,25 +11,25 @@
       apt:
         name: git
         state: present
-
+        
     - name: Ask user which scripts to install
       vars_prompt:
-        - name: "install_ansible2"
-          prompt: "Install Ansible 2? (yes/no)"
+    	- name: "install_ansible2"
+      	  prompt: "Install Ansible 2? (yes/no)"
+      	  private: no
+          default: yes
+
+    	- name: "install_apache2"
+      	  prompt: "Install Apache 2? (yes/no)"
           private: no
           default: yes
 
-        - name: "install_apache2"
-          prompt: "Install Apache 2? (yes/no)"
-          private: no
-          default: yes
-
-        - name: "install_wordpress"
+    	- name: "install_wordpress"
           prompt: "Install Wordpress? (yes/no)"
           private: no
           default: yes
 
-        - name: "install_zabbix"
+    	- name: "install_zabbix"
           prompt: "Install Zabbix? (yes/no)"
           private: no
           default: yes
@@ -86,4 +86,5 @@
         chdir: /tmp/scripts
       register: zabbixinstaller_output
       when: install_zabbix == "yes"
+
 

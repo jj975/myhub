@@ -1,0 +1,129 @@
+---
+- name: Install soft
+  hosts: s
+  become: true
+  vars:
+    install_ansible2: yes
+    install_apache2: yes
+    install_wordpress: yes
+    install_zabbix: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+      register: update
+    - debug:
+        msg: "{{ update }}"
+
+    - name: Create temporary directory
+      file:
+        path: /tmp/myhub
+        state: directory
+        mode: '0777'
+      register: result
+    - debug:
+        msg: "{{ result }}"
+
+    - name: Install git
+      apt:
+        name: git
+        state: present
+      register: git_install
+    - debug:
+        msg: "{{ git_install }}"
+
+    - name: Clone git repository
+      git:
+        repo: https://github.com/jj975/myhub.git
+        dest: /tmp/myhub
+        version: v8
+        clone: yes
+        force: yes
+      register: git_clone
+    - debug:
+        msg: "{{ git_clone }}"
+
+
+    - name: Check out v8 branch
+      git:
+        repo: https://github.com/jj975/myhub.git
+        dest: /tmp/myhub
+        version: v8
+        force: yes
+      register: resultbranch
+      when: git_clone.changed
+    - debug:
+        msg: "{{ resultbranch }}"
+
+    - name: Set execute permission for Ansible2.sh
+      file:
+        path: /tmp/myhub/scripts/Ansible2.sh
+        mode: '0777'
+      register: ansible2installer_output_p
+      when: install_ansible2 == "yes"
+    - debug:
+        msg: "{{ ansible2installer_output_p }}"
+
+    - name: Run ansible2.sh
+      shell: /tmp/myhub/scripts/Ansible2.sh
+      args:
+        chdir: /tmp/myhub/scripts
+      register: ansible2installer_output
+      when: install_ansible2 == "yes"
+    - debug:
+        msg: "{{ ansible2installer_output }}"
+
+    - name: Set execute permission for apache2installer.sh
+      file:
+        path: /tmp/myhub/scripts/apache2installer.sh
+        mode: '0777'
+      register: apache2installer_output_p
+      when: install_apache2 == "yes"
+    - debug:
+        msg: "{{ apache2installer_output_p }}"
+
+
+    - name: Run apache2installer.sh
+      shell: /tmp/myhub/scripts/apache2installer.sh
+      args:
+        chdir: /tmp/myhub/scripts
+      register: apache2installer_output
+      when: install_apache2 == "yes"
+    - debug:
+        msg: "{{ apache2installer_output }}"
+
+    - name: Set execute permission for wordpressbashinstaller.sh
+      file:
+        path: /tmp/myhub/scripts/wordpressbashinstaller.sh
+        mode: '0777'
+      register: wordpressbashinstaller_output_p
+      when: install_wordpress == "yes"
+    - debug:
+        msg: "{{ wordpressbashinstaller_output_p }}"
+
+    - name: Run wordpressbashinstaller.sh
+      shell: /tmp/myhub/scripts/wordpressbashinstaller.sh
+      args:
+        chdir: /tmp/myhub/scripts
+      register: wordpressbashinstaller_output
+      when: install_wordpress == "yes"
+    - debug:
+        msg: "{{ wordpressbashinstaller_output }}"
+
+    - name: Set execute permission for zabbixinstaller.sh
+      file:
+        path: /tmp/myhub/scripts/zabbixinstaller.sh
+        mode: '0777'
+      when: install_zabbix == "yes"
+      register: zabbixinstaller_output_p
+    - debug:
+        msg: "{{ zabbixinstaller_output_p }}"
+
+    - name: Run zabbixinstaller.sh
+      shell: /tmp/myhub/scripts/zabbixinstaller.sh
+      args:
+        chdir: /tmp/myhub/scripts
+      register: zabbixinstaller_output
+      when: install_zabbix == "yes"
+    - debug:
+        msg: "{{ zabbixinstaller_output }}"
